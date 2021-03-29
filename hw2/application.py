@@ -39,8 +39,39 @@ print(L_test)
 print("Loss on testing set is less than 1e-2:")
 print(L_test<1e-2)
 
+loss_test = []
+al = []
+alpha = 0.015
+while alpha < 0.1:
+    al.append(alpha)
+    w = train(Xtrain, Ytrain, alpha, n_epoch = 500)
+    yhat = Xtrain.dot(w)
+    yhat_test = Xtest.dot(w)
+    L = compute_L(yhat, Ytrain)
+    L_test = compute_L(yhat_test, Ytest)
+    loss_test.append(L_test)
+    alpha += 0.0001
+print(loss_test)
+import matplotlib.pyplot as plt
+plt.xlabel("Alpha value")
+plt.ylabel("Loss on test set")
+plt.plot(al, loss_test, color="r")
+plt.show()
 
-
-
+# loss_test = []
+# epoch = []
+# for n_epoch in range(500, 1000):
+#     epoch.append(n_epoch)
+#     w = train(Xtrain, Ytrain, alpha=0.01, n_epoch=n_epoch)
+#     yhat = Xtrain.dot(w)
+#     yhat_test = Xtest.dot(w)
+#     L = compute_L(yhat, Ytrain)
+#     L_test = compute_L(yhat_test, Ytest)
+#     loss_test.append(L_test)
+# import matplotlib.pyplot as plt
+# plt.xlabel("Epochs")
+# plt.ylabel("Loss on test set")
+# plt.plot(epoch, loss_test, color="b")
+# plt.show()
 #########################################
 
